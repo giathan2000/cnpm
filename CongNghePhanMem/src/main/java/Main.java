@@ -4,6 +4,9 @@ import Controller.*;
 import Model.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /*
@@ -45,9 +48,20 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                MainModel model = null;
+                try {
+                    model = new MainModel();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 MainView view = new MainView();
-                MainModel model = new MainModel();
-                MainController controller = new MainController(model,view);
+                
+                try {
+                    MainController controller = new MainController(model, view);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

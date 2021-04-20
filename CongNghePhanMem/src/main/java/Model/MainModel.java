@@ -12,22 +12,26 @@ import java.sql.*;
  * @author hesac
  */
 public class MainModel {
-    private Connection con;
-    private DonBaoDuongModel DBDM;
-    public MainModel() {
+
+
+    private DonBaoDuongModel donBaoDuongModel;
+
+    public MainModel() throws SQLException {
         init();
+        donBaoDuongModel = new DonBaoDuongModel();
+
     }
 
     private void init() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://;databaseName=QuanLyBaoDuong [sa on dbo]", "sa", "123");
-        } catch (ClassNotFoundException | SQLException e) {
-        }
-        
-        
+
     }
-    
-    
-    
+
+    public DonBaoDuongModel getDonBaoDuongModel() {
+        return donBaoDuongModel;
+    }
+
+    public void setDonBaoDuongModel(DonBaoDuongModel DBDM) {
+        this.donBaoDuongModel = DBDM;
+    }
+
 }

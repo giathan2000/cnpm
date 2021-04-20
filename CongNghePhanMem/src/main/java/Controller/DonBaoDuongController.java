@@ -7,24 +7,37 @@ package Controller;
 
 import View.*;
 import Model.*;
+import Entities.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author hesac
  */
 public class DonBaoDuongController {
     DonBaoDuongPanel thanhToanPanel;
-    MainModel model;
-
-    public DonBaoDuongController(DonBaoDuongPanel donBaoDuongPanel, MainModel model) {
+    DonBaoDuongModel baoDuongModel;
+    
+    public DonBaoDuongController(DonBaoDuongPanel donBaoDuongPanel, DonBaoDuongModel model) throws SQLException {
         this.thanhToanPanel = donBaoDuongPanel;
-        this.model = model;
+        this.baoDuongModel = model;
+        init();
     }
     
-    public void init(){
-        //thanhToanPanel.get
+    public void init() throws SQLException{
+        loadDanhSachTrangThaiPhuTungTiepNhan();
     }
     
     private void loadKhachHang(int id){
         
+    }
+    
+    private void loadDanhSachTrangThaiPhuTungTiepNhan() throws SQLException{
+        ArrayList<PhuTung> arl =  baoDuongModel.layDanhSachPhuTungCanKiemTra();
+        DefaultTableModel dftb = (DefaultTableModel)thanhToanPanel.getDanhSachtrangThaiPhuTungTiepNhan().getModel();
+        for (PhuTung pt : arl) {
+            dftb.addRow(new Object[]{pt.getTenPhuTung(),null,null,null,null,null});
+        }
     }
 }
